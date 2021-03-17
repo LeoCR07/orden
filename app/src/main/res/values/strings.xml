@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Orden</string>
+
+    <string-array name="ArrayConfiguracion">
+
+        <item>"Editar Mesas"</item>
+        <item>"Bloquear platos"</item>
+        <item>"Crear un plato"</item>
+        <item>"Modificar un plato"</item>
+        <item>"Eliminar un plato"</item>
+        <item>"Inventario"</item>
+
+    </string-array>
+</resources>

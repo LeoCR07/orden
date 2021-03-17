@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="login">#D00E1213</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#F4F2F4</color>
+    <color name="pruebas">#F8C3C2C2</color>
+    <color name="red">#EF5350</color>
+
+    <color name="colorPrimaryDark">#154360</color>
+    <color name="Principal">#1F618D</color>
+    <color name="Fondo">#EBF5FB</color>
+    <color name="Segundario">#154360</color>
+    <color name="Boton">#2E86C1</color>
+    <color name="red_fuerte">#E53935</color>
+    <color name="colorAqui">#DDAE3B</color>
+    <color name="colorLlevar">#D5437483</color>
+    <color name="colorConfiguracion">#575858</color>
+    <color name="colorActividad">#A400ACC1</color>
+    <color name="colorComanda">#363A612F</color>
+    <color name="letrasPrincipales">#0B0B0B</color>
+</resources>

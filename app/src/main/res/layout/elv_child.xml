@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+       <Button
+            android:id="@+id/BtnPlato"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="textStart"
+            android:paddingLeft="30dp"
+            android:text="hola"
+            android:backgroundTint="#fff"
+            android:textColor="#000000"
+            android:textSize="14dp"
+
+            />
+
+    </LinearLayout>
+
+
+</LinearLayout>

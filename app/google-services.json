@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "748244992450",
+    "firebase_url": "https://facturero-2c924-default-rtdb.firebaseio.com",
+    "project_id": "facturero-2c924",
+    "storage_bucket": "facturero-2c924.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:748244992450:android:d1071c88cdfbaf332e965b",
+        "android_client_info": {
+          "package_name": "com.example.orden"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "748244992450-uvksmvqr764tgenlr7509a0sbkn9vbes.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwvPCXa7N9Ebrbzjg-NjJCMO02oCQI_oA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "748244992450-uvksmvqr764tgenlr7509a0sbkn9vbes.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:748244992450:android:4ba55badcb3b8ba72e965b",
+        "android_client_info": {
+          "package_name": "com.example.realm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "748244992450-uvksmvqr764tgenlr7509a0sbkn9vbes.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwvPCXa7N9Ebrbzjg-NjJCMO02oCQI_oA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "748244992450-uvksmvqr764tgenlr7509a0sbkn9vbes.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

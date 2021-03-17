@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#C1C0C0"
+    tools:context="Comanda.MainComandaActivity">
+
+
+    <Space
+        android:id="@+id/space"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ViewDown"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/fondo_down"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/space" />
+
+    <TextView
+        android:id="@+id/View_Up"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/fondo_up"
+        app:layout_constraintBottom_toTopOf="@+id/space"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.038" />
+
+
+
+    <!--Pantalla ver lista-->
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/TxtViewCantidad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:paddingStart="12dp"
+            android:text="B:0 / C:0"
+            android:textColor="#fff" />
+
+        <TextView
+            android:id="@+id/TextViewMesa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorPrimaryDark"
+            android:paddingEnd="12dp"
+            android:text="Mesa # 7"
+            android:textAlignment="viewEnd"
+
+            android:textColor="#fff" />
+    </LinearLayout>
+
+
+    <!--Mostrar el Menu-->
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerID"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:accessibilityLiveRegion="polite"
+        android:importantForAccessibility="yes"
+        android:longClickable="false"
+        android:nestedScrollingEnabled="true"
+        android:saveEnabled="true"
+        android:scrollbarStyle="insideInset"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/space"
+        app:layout_constraintEnd_toEndOf="@+id/View_Up"
+        app:layout_constraintStart_toStartOf="@+id/View_Up"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        tools:visibility="visible">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+    <ExpandableListView
+        android:id="@+id/expLV"
+        style="@android:style/Widget.Material.ExpandableListView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignParentBottom="true"
+        android:textAlignment="viewStart"
+        app:layout_constraintBottom_toBottomOf="@+id/ViewDown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/ViewDown"
+        app:layout_constraintTop_toBottomOf="@+id/space"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <!--Botones flotantes-->
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!--menu -->
+        <com.github.clans.fab.FloatingActionMenu
+            android:id="@+id/MenuPrincipal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="-3dp"
+            android:layout_marginRight="-3dp"
+            android:layout_marginBottom="10dp"
+            app:menu_fab_label="Menu">
+
+            <!--bebidas-->
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/SubMenuBedidas"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:onClick="AddDiferenteBebidas"
+                android:src="@drawable/ic_bebida"
+                app:fab_label="Bebidas" />
+
+            <!--comidas-->
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/SubMenuComida"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:onClick="AddDiferenteComida"
+                android:src="@drawable/ic_comida"
+                app:fab_label="Comidas" />
+
+            <!--envia-->
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/SubMenuEnviar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:onClick="SetComanda"
+                android:src="@drawable/ic_enviar"
+                app:fab_label="Enviar" />
+
+        </com.github.clans.fab.FloatingActionMenu>
+
+    </RelativeLayout>
+
+    <!--Botones flotantes-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
