@@ -17,7 +17,7 @@ import com.example.orden.R;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class AdapaterCaja extends ArrayAdapter<ModeloMenuFirebase> {
+public class AdapaterCaja extends ArrayAdapter<Menu> {
 
     private int recursos;
     private Context context;
@@ -25,7 +25,7 @@ public class AdapaterCaja extends ArrayAdapter<ModeloMenuFirebase> {
     private int precio;
 
 
-    public AdapaterCaja(@NonNull Context context, int resource, @NonNull ArrayList<ModeloMenuFirebase> objects) {
+    public AdapaterCaja(@NonNull Context context, int resource, @NonNull ArrayList<Menu> objects) {
         super(context, resource, objects);
         recursos = resource;
         this.context = context;
@@ -40,7 +40,7 @@ public class AdapaterCaja extends ArrayAdapter<ModeloMenuFirebase> {
         String comentario = getItem(position).getComentario();
         cantidad = getItem(position).getCantidad();
         precio = getItem(position).getPrecio();
-        suma = getItem(position).getSeleccion();
+        //suma = getItem(position).getSeleccion();
 
 
         LayoutInflater inflater = LayoutInflater.from(context);

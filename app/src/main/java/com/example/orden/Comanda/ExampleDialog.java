@@ -7,14 +7,21 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.example.orden.Configuracion.ModeloNuevoPlato;
 import com.example.orden.R;
+
+import java.util.ArrayList;
+
+import static com.example.orden.Comanda.ComandaActivity.myAdapter;
 
 public class ExampleDialog extends AppCompatDialogFragment {
 
@@ -24,6 +31,8 @@ public class ExampleDialog extends AppCompatDialogFragment {
     private String TipoCategoria;
     private boolean pre = false;
     private TextView contador;
+    private Context contexto;
+    ModeloNuevoPlato opc = new ModeloNuevoPlato("",0,false);
 
     private View Vx2;
     private View Vx1;
@@ -43,131 +52,159 @@ public class ExampleDialog extends AppCompatDialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Toast.makeText(getContext(), "Hola 2", Toast.LENGTH_SHORT).show();
+
+        //Menu obj = new Menu(e.getEstado(),e.getNombre(),e.getPrecio(),e.getSub(),e.getTipo(),e.getCategory(),e.getComentario(),e.getOpciones());
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        if(Metodo.equals("ApplyPreferenceAndDescription")){
-            Vx2 = LayoutInflater.from(getContext()).inflate(R.layout.radiox2,null);
-
-            /** x2 View **/
-            final RadioButton rd1x2 = Vx2.findViewById(R.id.Rb1);
-            final RadioButton rd2x2 = Vx2.findViewById(R.id.Rb2);
-            final EditText ComentarioX2 = Vx2.findViewById(R.id.EditComentarioX2);
-
-            SetRadioButtonValue(rd1x2,rd2x2);
-            final Boolean prevalencia = pre;
-
-            builder.setTitle(e.getNombre())
-                    .setView(Vx2)
-                    .setNegativeButton("Cancelar",null)
-                    .setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            final String comentario = ComentarioX2.getText().toString().trim();
-                            listener.CreatePreferenceAndDescription(GetRadioButtonValue(rd1x2,rd2x2),comentario,e,prevalencia);
-                        }
-                    });
-
-        }else if(Metodo.equals("ApplyDescription")){
+        try{
             Vx1= LayoutInflater.from(getContext()).inflate(R.layout.comentario,null);
             final EditText ComentarioX1 = Vx1.findViewById(R.id.EditComentarioX1);
 
-            if(e.getComentario()!=""){
+
+           // Toast.makeText(getContext(), e.getComentario()+"", Toast.LENGTH_SHORT).show();
+
+           // System.out.println(e.getComentario()+"");
+            if(Metodo.equals("GenerarComentario")){
+                builder.setTitle(e.getNombre())
+                        .setView(Vx1)
+                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                final String COMENTARIO = ComentarioX1.getText().toString().trim();
+                                listener.CrearObjMenuComentarioSimple(COMENTARIO,e);
+                            }
+                        });
+            }else if(Metodo.equals("EditarComentarioSimple")){
                 ComentarioX1.setText(e.getComentario());
-                pre = true;
+                builder.setTitle(e.getNombre())
+                        .setView(Vx1)
+                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                final String COMENTARIO = ComentarioX1.getText().toString().trim();
+                               // e.setComentario(COMENTARIO);
+                               // myAdapter.notifyDataSetChanged();
+                                listener.EditarObjMenuComentarioSimple(COMENTARIO,e);
+                            }
+                        });
+
+            }else if(Metodo.equals("GenerarOpcionesUnica")){
+
+                final int[] position = new int[1];
+                position[0]=-1;
+                CharSequence []char1 = new CharSequence[e.getOpciones().size()];
+                int i  = 0;
+                ArrayList<ModeloNuevoPlato> listOpc = new ArrayList<>();
+
+                for(ModeloNuevoPlato mn :e.getOpciones()){
+                    listOpc.add(new ModeloNuevoPlato(mn.getNombre(),mn.getPrecio(),false));
+                    char1[i] = mn.getNombre();
+                    i++;
+                }
+
+
+                builder.setTitle(e.getNombre())
+                        .setView(Vx1)
+                        .setSingleChoiceItems(char1, -1, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                position[0] = which;
+                                Activar(which);
+                                //Toast.makeText(getContext(), "Hola", Toast.LENGTH_SHORT).show();
+                            }
+
+                            private void Activar(int which) {
+                                for(ModeloNuevoPlato e:listOpc){
+                                    if(e.getNombre().equals(char1[which])){
+                                        e.setSelec(true);
+                                    }else{
+                                        e.setSelec(false);
+                                    }
+                                }
+                            }
+                        })
+                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if(position[0]==-1){
+                                    Toast.makeText(getContext(), "Debes de elegir una opcion", Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
+                                }else{
+                                    final String COMENTARIO = ComentarioX1.getText().toString().trim();
+                                    listener.CrearObjMenuOpcionesUnica(COMENTARIO,e,listOpc,position[0]);
+                                }
+
+                            }
+                        });
+            }else if(Metodo.equals("EditarObjMenuComentarioUnico")){
+
+                final int[] position = new int[1];
+                position[0]=-1;
+                CharSequence []char1 = new CharSequence[e.getOpciones().size()];
+                int i  = 0;
+                ArrayList<ModeloNuevoPlato> listOpc = new ArrayList<>();
+
+                ComentarioX1.setText(e.getComentario());
+
+                for(ModeloNuevoPlato mn :e.getOpciones()){
+
+                    if(mn.getSelec()){
+                        position[0] = i;
+                        listOpc.add(new ModeloNuevoPlato(mn.getNombre(),mn.getPrecio(),true));
+                    }else{
+                        listOpc.add(new ModeloNuevoPlato(mn.getNombre(),mn.getPrecio(),false));
+                    }
+
+                    char1[i] = mn.getNombre();
+                    i++;
+                }
+
+
+                builder.setTitle(e.getNombre())
+                        .setView(Vx1)
+                        .setSingleChoiceItems(char1, position[0], new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                position[0] = which;
+                                Activar(which);
+                                //Toast.makeText(getContext(), "Hola", Toast.LENGTH_SHORT).show();
+                            }
+
+                            private void Activar(int which) {
+                                for(ModeloNuevoPlato e:listOpc){
+                                    if(e.getNombre().equals(char1[which])){
+                                        e.setSelec(true);
+                                    }else{
+                                        e.setSelec(false);
+                                    }
+                                }
+                            }
+                        })
+                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+
+                                final String COMENTARIO = ComentarioX1.getText().toString().trim();
+                               // e.setComentario(COMENTARIO);
+                                listener.EditarObjMenuComentarioUnico(COMENTARIO,e,listOpc,position[0]);
+
+                            }
+                        });
             }
-
-            final boolean prevalencia = pre;
-            builder.setTitle(e.getNombre())
-                    .setView(Vx1)
-                    .setCancelable(true)
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            final String COMENTARIO = ComentarioX1.getText().toString().trim();
-                            listener.CreateDescription(COMENTARIO,e,prevalencia);
-
-                        }
-                    });
-
-
-
-        }else if(Metodo.equals("AddDiferente")){
-            Vx1= LayoutInflater.from(getContext()).inflate(R.layout.comentario,null);
-            final EditText NombreX1 = Vx1.findViewById(R.id.EditComentarioX1);
-            NombreX1.setHint("Agregar tu pedido");
-            final Categorias categoria;
-
-            if(TipoCategoria.equals("Bebida")){
-                categoria = Categorias.BATIDOS;
-            }else{
-                categoria = Categorias.CASADO;
-            }
-
-            builder.setTitle("Nueva "+TipoCategoria)
-                    .setView(Vx1)
-                    .setCancelable(true)
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            final String Nombre = "."+NombreX1.getText().toString().trim();
-                            listener.CreateNewName(Nombre,categoria);
-                        }
-                    });
-
-        }else if(Metodo.equals("EditarComentario")){
-            Vx1= LayoutInflater.from(getContext()).inflate(R.layout.comentario,null);
-            final EditText ComentarioX1 = Vx1.findViewById(R.id.EditComentarioX1);
-
-            ComentarioX1.setText(e.getComentario());
-
-            final boolean prevalencia = true;
-            builder.setTitle(e.getNombre())
-                    .setView(Vx1)
-                    .setCancelable(true)
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            final String COMENTARIO = ComentarioX1.getText().toString().trim();
-                            listener.CreateDescription(COMENTARIO,e,prevalencia);
-
-                        }
-                    });
-
-        }else if(Metodo.equals("EditarPreferenceAndDescription")){
-            Vx2 = LayoutInflater.from(getContext()).inflate(R.layout.radiox2,null);
-
-            /** x2 View **/
-            final RadioButton rd1x2 = Vx2.findViewById(R.id.Rb1);
-            final RadioButton rd2x2 = Vx2.findViewById(R.id.Rb2);
-            final EditText ComentarioX2 = Vx2.findViewById(R.id.EditComentarioX2);
-
-            SetRadioButtonValue(rd1x2,rd2x2);
-            ComentarioX2.setText(e.getComentario());
-
-            if(e.getPreferencia()==rd1x2.getText()){
-                rd1x2.setChecked(true);
-            }else if (e.getPreferencia()==rd2x2.getText()){
-                rd2x2.setChecked(true);
-            }
-
-            final Boolean prevalencia = true;
-
-            builder.setTitle(e.getNombre())
-                    .setView(Vx2)
-                    .setNegativeButton("Cancelar",null)
-                    .setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            final String comentario = ComentarioX2.getText().toString().trim();
-                            listener.CreatePreferenceAndDescription(GetRadioButtonValue(rd1x2,rd2x2),comentario,e,prevalencia);
-                        }
-                    });
+        }catch (Exception X){
+            System.out.println(X.getMessage());
+           // Toast.makeText(contexto, ""+X.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
+
+
         return builder.create();
+
     }
+
+
 
     @Override
     public void onAttach(Context context) {
@@ -180,54 +217,6 @@ public class ExampleDialog extends AppCompatDialogFragment {
         listener = (com.example.orden.Comanda.ExampleDialogListener) context;
     }
 
-
-    private void SetRadioButtonValue(RadioButton rd1x2, RadioButton rd2x2){
-
-        switch (e.getCategoria()){
-            case GALLO:{
-                rd1x2.setText("Arreglado");
-                rd2x2.setText("Simple");
-                break;
-            }case DESAYUNO:{
-                if(e.getNombre().equals("Pinto de la casa")){
-                    rd1x2.setText("Huevo Frito");
-                    rd2x2.setText("Huevo Picado");
-                    break;
-                }else if(e.getNombre().equals("Sandwich")){
-                    rd1x2.setText("Carne");
-                    rd2x2.setText("Jamon y Queso");
-                    break;
-                }
-            }case SOPAS:{
-                rd1x2.setText("Entera");
-                rd2x2.setText("Media");
-                break;
-            }case CALIENTE:{
-                if(e.getNombre().equals("Cafe")){
-                    rd1x2.setText("Con leche");
-                    rd2x2.setText("Negro");
-
-                }else if(e.getNombre().equals("Aguadulce")){
-                    rd1x2.setText("Con leche");
-                    rd2x2.setText("Negro");
-
-                }else if(e.getNombre().equals("Te")){
-                    rd1x2.setText("Manzanilla");
-                    rd2x2.setText("Negro");
-                }
-                break;
-            }case BATIDOS:{
-                rd1x2.setText("Con leche");
-                rd2x2.setText("Con agua");
-                break;
-            }
-        }
-    }
-
-    private String GetRadioButtonValue(RadioButton rd1x2, RadioButton rd2x2){
-        String preference = String.valueOf(rd1x2.isChecked()? rd1x2.getText():rd2x2.isChecked()?rd2x2.getText():null);
-        return preference;
-    }
 
 
 

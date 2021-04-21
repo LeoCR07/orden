@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+
+
+    <LinearLayout
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/ViewPlato"
+                android:layout_width="match_parent"
+                android:backgroundTint="#FFF"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content"
+                android:text="Hola"
+                android:textAlignment="center"></TextView>
+
+
+            <TextView
+                android:id="@+id/ViewCategoria"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Categoria"
+                android:textColor="@color/colorConfiguracion"
+                android:layout_gravity="center"
+                android:textSize="12sp"
+                android:textAlignment="center"></TextView>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ImgEditarPM"
+            android:padding="10dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_editar"></ImageView>
+
+        <ImageView
+            android:id="@+id/ImgBloqueoPM"
+            android:layout_width="0dp"
+            android:padding="10dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_lock_open"></ImageView>
+
+        <ImageView
+            android:id="@+id/ImgBorrarPM"
+            android:layout_width="0dp"
+            android:padding="10dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_delete"></ImageView>
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

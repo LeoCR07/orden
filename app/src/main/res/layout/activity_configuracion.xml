@@ -8,5 +8,5 @@
     android:padding="8dp"
     android:background="@color/Fondo">
 
-    <include layout="@layout/contenedor_grid"></include>
+    <include layout="@layout/contendor_menu"></include>
 </RelativeLayout>

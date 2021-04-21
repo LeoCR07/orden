@@ -15,20 +15,18 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.orden.Configuracion.ModeloNuevoPlato;
 import com.example.orden.R;
 
 import java.util.LinkedList;
 
 public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDatos> {
+
     public  static LinkedList<Menu> e; //objeto de las lista
     Drawable MyDrawable;
     Resources resources;
     Context context;
     FragmentManager Support;
-
-
-    public AdapterDatos() {
-    }
 
     public AdapterDatos(LinkedList<Menu> lisDatos, Resources resources, Context context, FragmentManager Support) {
         this.resources = resources;
@@ -36,7 +34,6 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
         this.context = context;
         this.Support = Support;
     }
-
 
     @Override
     public ViewHolderDatos onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -52,18 +49,17 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
             holder.menuPopUp_plato.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(context, ""+e.get(position).getNombre(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, ""+e.get(position).getNombre(), Toast.LENGTH_SHORT).show();
 
-
-                    if((!e.get(position).getEleccionMultiple())){
-                        ExampleDialog dialog = new ExampleDialog(e.get(position),"EditarComentario");
+                    if(e.get(position).getTipo().equals("Simple")){
+                        //Toast.makeText(context,e.get(position).getComentario()+"", Toast.LENGTH_SHORT).show();
+                        ExampleDialog dialog = new ExampleDialog(e.get(position),"EditarComentarioSimple");
                         dialog.show(Support,"example dialog");
 
                     }else{
-                        ExampleDialog dialog = new ExampleDialog(e.get(position),"EditarPreferenceAndDescription");
+                        ExampleDialog dialog = new ExampleDialog(e.get(position),"EditarObjMenuComentarioUnico");
                         dialog.show(Support,"example dialog");
                     }
-                    //diferenciar si tiene preferencia o no
 
                 }
 
@@ -91,43 +87,26 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
 
         public void asiganarDatos(Menu m) {
 
-            /*
-            Drawable drawable1 = resources.getDrawable(R.drawable.ic_color_1);
-            Drawable drawable2 = resources.getDrawable(R.drawable.ic_color_2);
-            Float densidad = resources.getDisplayMetrics().density;
-            int WithHight = Math.round(20*densidad);
-            drawable1.setBounds(0,0,WithHight,WithHight);
-            drawable2.setBounds(0,0,WithHight,WithHight);
-
-             */
-
-            if((m.getCategoria()==Categorias.BATIDOS)||(m.getCategoria()==Categorias.CALIENTE)){
-               // dato.setCompoundDrawables(drawable1,null,null,null);
-
-                dato.setTextColor(Color.parseColor("#3C70AF"));
-                //dato.setTextColor(Color.parseColor(String.valueOf(R.color.colortextobebidas)));
+           // Toast.makeText(context, ""+m.getCategory(), Toast.LENGTH_SHORT).show();
+            //Sirve para enviar a la lista con colores diferente las bebidas de las comidas
+            if(m.getCategory().equals("Bebida Fria")){
+                dato.setTextColor(Color.parseColor("#B27C18"));
             }else{
-               dato.setTextColor(Color.parseColor("#379E37"));
-
-                //dato.setTextColor(Color.parseColor("#"+(R.color.colortextocomidas)));
-
+                dato.setTextColor(Color.parseColor("#379E37"));
             }
 
-
-            dato.setText(m.getCantidad()+": "+m.getNombre() + " " +m.getPreferencia()+" "+m.getComentario());
-
-
-
-
-
-/*
-            if((m.getPreferencia()==null)&&(m.getComentario()==null)){
-                dato.setText(String.valueOf(m.getCantidad()+": "+m.getNombre()));
-            }else{
-                dato.setText(String.valueOf(m.getCantidad()+": "+m.getNombre() + " " +m.getPreferencia()+" "+m.getComentario()));
+            //Para mostrar los datos el simple solo muestra la cantidad nombre y comentario si fuera el caso
+            if(m.getTipo().equals("Simple")){
+                dato.setText(m.getCantidad()+": "+m.getNombre() + " "+m.getComentario());
+            }else if(m.getTipo().equals("Unica")){
+                String seleccionada = "";
+                for(ModeloNuevoPlato e: m.getOpciones()){
+                    if(e.getSelec()){
+                        seleccionada = e.getNombre();
+                    }
+                }
+                dato.setText(m.getCantidad()+": "+m.getNombre() +" "+seleccionada+" "+m.getComentario());
             }
-*/
-
         }
     }
 }

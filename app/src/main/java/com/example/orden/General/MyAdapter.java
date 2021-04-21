@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.orden.Caja.FacturaActivity;
-import com.example.orden.Comanda.MainComandaActivity;
 import com.example.orden.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,6 +30,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> implements Vie
     private Context context;
     private List<ModeloFactura> Itemlist;
     private  View.OnClickListener mlistener;
+
+
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference myRef = database.getReference("SodaPoas/Usuarios");
 
     @Override
     public void onClick(View view) {
@@ -55,11 +58,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> implements Vie
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView;
 
+
         if(layout.equals("Grid")){
             itemView = LayoutInflater.from(context).inflate(R.layout.grid,parent,false);
-        }else if(layout.equals("Ajustes")){
-            itemView = LayoutInflater.from(context).inflate(R.layout.linear_ajustes,parent,false);
+        }else if(layout.equals("Usuario")){
+            itemView = LayoutInflater.from(context).inflate(R.layout.linear_usuarios,parent,false);
+        }else if(layout.equals("UsuarioEdit")){
+            itemView = LayoutInflater.from(context).inflate(R.layout.linear_editar_usuario,parent,false);
         }else{
+            //factura
             itemView = LayoutInflater.from(context).inflate(R.layout.linear_factura,parent,false);
         }
 
@@ -70,11 +77,23 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> implements Vie
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        if((layout.equals("Grid"))||(layout.equals("Ajustes"))){
+        if( layout.equals("Grid")){
             holder.Nombre.setText(Itemlist.get(position).getNombre());
             holder.Img.setImageResource(Itemlist.get(position).getImagen());
-
-        }else {
+        }else if(layout.equals("Usuario")){
+            holder.Nombre.setText(Itemlist.get(position).getNombre());
+        }else if(layout.equals("UsuarioEdit")){
+            holder.Nombre.setText(Itemlist.get(position).getNombre());
+            holder.Img.setImageResource(Itemlist.get(position).getImagen());
+            holder.Img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Eliminar Usuarios
+                    myRef.child(Itemlist.get(position).getNombre()).removeValue();
+                }
+            });
+        }else{
+            //factura
             holder.Nombre.setText(Itemlist.get(position).getNombre());
             holder.Img.setImageResource(Itemlist.get(position).getImagen());
             holder.ID_Factuta.setText(Itemlist.get(position).getID());
@@ -88,6 +107,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> implements Vie
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()){
+
+                                case R.id.item_0:{
+                                    Toast.makeText(context,"Cambiar mesa "+Itemlist.get(position).getNombre(),Toast.LENGTH_SHORT).show();
+                                    break;
+                                }
+
                                 case R.id.item_1:{
                                     Toast.makeText(context,"Cambiar mesa "+Itemlist.get(position).getNombre(),Toast.LENGTH_SHORT).show();
                                     break;

@@ -9,28 +9,48 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Orden">
-        <activity android:name=".Configuracion.NumeroMesaActivity"></activity>
+        <activity android:name=".Comanda.ComandaActivity"></activity>
+        <activity
+            android:name=".Configuracion.EditarUsuarioActivity"
+            android:parentActivityName=".Configuracion.ConfiguracionActivity" />
+        <activity
+            android:name=".Actividad.UsuarioActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar.Usuario" />
+        <activity
+            android:name=".Configuracion.AgregarPlato2Activity"
+            android:parentActivityName=".Configuracion.ModificarPlatoActivity" />
+        <activity
+            android:name=".Configuracion.PopUP"
+            android:theme="@style/Theme.AppCompat.NoActionBar.PopUp" />
+        <activity
+            android:name=".Configuracion.ModificarPlatoActivity"
+            android:parentActivityName=".Configuracion.ConfiguracionActivity" />
+        <activity android:name=".Configuracion.AgregarPlatoActivity" />
+        <activity android:name=".Configuracion.NumeroMesaActivity"
+            android:parentActivityName=".Configuracion.ConfiguracionActivity"/>
         <activity android:name=".Comanda.MainComandaActivity" />
         <activity android:name=".Caja.CajaActivity" />
-        <activity android:name=".Caja.FacturaActivity" />
+        <activity
+            android:name=".Caja.FacturaActivity"
+            android:parentActivityName=".Actividad.MesasActivity" />
         <activity
             android:name=".Actividad.MesasActivity"
-            android:parentActivityName=".Principal.MainActivity" />
-        <activity
-            android:name=".Configuracion.ConfiguracionActivity"
-            android:parentActivityName=".Principal.MainActivity" />
-        <activity
-            android:name=".Comanda.ComandaA1Activity"
-            android:parentActivityName=".Principal.MainActivity" />
-        <activity android:name=".Login.LoginActivity" />
-        <activity android:name=".Splash.SplashActivity" />
-        <activity android:name=".Principal.MainActivity">
+            android:parentActivityName=".Principal.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Configuracion.ConfiguracionActivity"
+            android:parentActivityName=".Actividad.MesasActivity" />
+        <activity
+            android:name=".Comanda.ComandaA1Activity"
+            android:theme="@style/Theme.AppCompat.NoActionBar.PopUp" />
+        <activity android:name=".Login.LoginActivity" />
+        <activity android:name=".Splash.SplashActivity" />
+        <activity android:name=".Principal.MainActivity" />
     </application>
 
 </manifest>

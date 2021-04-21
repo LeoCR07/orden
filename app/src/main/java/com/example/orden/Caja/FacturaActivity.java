@@ -8,9 +8,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.orden.Comanda.ComandaA1Activity;
+import com.example.orden.Comanda.Factura;
 import com.example.orden.General.ModeloFactura;
 import com.example.orden.General.MyAdapter;
 import com.example.orden.R;
@@ -34,7 +38,9 @@ public class FacturaActivity extends AppCompatActivity {
     private List<String>ListaCuenta = new ArrayList<>();
     private List<ModeloFactura> itemList = new ArrayList<>();
     private int cantidad = 0;
-    private String NMesa;
+    private String NMesa;    //variable importante
+    private String numero;
+
 
 
     @Override
@@ -44,7 +50,8 @@ public class FacturaActivity extends AppCompatActivity {
         Toast.makeText(this, "OnCreate", Toast.LENGTH_LONG).show();
 
         NMesa ="SodaPoas/Salon/"+getIntent().getStringExtra("Mesa");
-        getSupportActionBar().setTitle(NMesa);
+        numero = getIntent().getStringExtra("Mesa");
+        getSupportActionBar().setTitle("Mesa "+numero);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         recyclerView = findViewById(R.id.recycler_facturas);
         recyclerView.setHasFixedSize(true);
@@ -80,7 +87,8 @@ public class FacturaActivity extends AppCompatActivity {
             }
 
             for(int i =0;i<cantidad;i++){
-                itemList.add(new ModeloFactura(R.drawable.mesa_activa,"Cuenta "+(i+1),ListaID.get(i),NMesa));
+                itemList.add(new ModeloFactura(R.drawable.mesa_activa_2,"Cuenta "+(i+1),ListaID.get(i),NMesa));
+                //NMesa es la dirreccion en firebase
             }
 
            // Toast.makeText(getApplicationContext(), ListaID.get(0)+"", Toast.LENGTH_SHORT).show();
@@ -90,8 +98,9 @@ public class FacturaActivity extends AppCompatActivity {
             adapter.setOnIteamClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent in = new Intent(getApplicationContext(),CajaActivity.class);
-                    factura = NMesa+"/"+itemList.get(recyclerView.getChildAdapterPosition(view)).getID();
+                    Intent in = new Intent(FacturaActivity.this,CajaActivity.class);
+                    //factura = NMesa+"/"+itemList.get(recyclerView.getChildAdapterPosition(view)).getID();
+                   factura = NMesa;
                     in.putExtra("factura",factura);
                     startActivity(in);
                 }
@@ -108,4 +117,29 @@ public class FacturaActivity extends AppCompatActivity {
             Log.w("facturaActividad", "Fallo lectura.", error.toException());
         }
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.icon_comanda:{
+                Intent in = new Intent(FacturaActivity.this, ComandaA1Activity.class);
+                in.putExtra("num",numero);
+                startActivity(in);
+                //OpenDialog();
+                break;
+            }
+
+
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.comanda,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
 }

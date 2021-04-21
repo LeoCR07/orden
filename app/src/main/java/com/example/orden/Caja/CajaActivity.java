@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,7 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.orden.Comanda.ComandaA1Activity;
-import com.example.orden.Comanda.MainComandaActivity;
+
+import com.example.orden.Comanda.Menu;
 import com.example.orden.General.ModeloFactura;
 import com.example.orden.R;
 import com.google.firebase.database.DataSnapshot;
@@ -37,12 +37,12 @@ public class CajaActivity extends AppCompatActivity {
     private TextView _Pantalla;
     protected ListView _ListaViewPantalla;
     protected TextView _Total;
-    private String Dir= "";
+    private String address = "";
     private int igual = 0;
     protected Switch _BtnSwitch;
 
 
-    public ArrayList<ModeloMenuFirebase> lista = new ArrayList<>();
+    public ArrayList<com.example.orden.Comanda.Menu> lista = new ArrayList<>();
     //public static LinkedList<com.example.orden.Comanda.Menu> lista = new LinkedList<>();
     protected AdapaterCaja adapater;
 
@@ -52,15 +52,15 @@ public class CajaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_caja);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Dir = getIntent().getStringExtra("factura");
-        getSupportActionBar().setTitle(Dir);
+        address = getIntent().getStringExtra("factura");
+        getSupportActionBar().setTitle(address);
         adapater = new AdapaterCaja(getApplicationContext(),R.layout.caja_view,lista);
 
 
         _ListaViewPantalla = findViewById(R.id.ListViewPantalla);
         _Total = findViewById(R.id.TxtViewTotal);
         _BtnSwitch = findViewById(R.id.switch_total);
-        Realtime(Dir);
+        Realtime(address);
 
     }
 
@@ -102,7 +102,7 @@ public class CajaActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
         getMenuInflater().inflate(R.menu.caja,menu);
         return super.onCreateOptionsMenu(menu);
     }
@@ -113,8 +113,8 @@ public class CajaActivity extends AppCompatActivity {
 
         if(_BtnSwitch.isChecked()){
             //actualiza la pantalla enviando la cantidad a seleccionados
-            for(ModeloMenuFirebase e:lista){
-                e.setSeleccion(e.getCantidad());
+            for(Menu e:lista){
+              //  e.setSeleccion(e.getCantidad());
             }
             //actualizar la varible para llevar el mismo control
             igual = lista.size();
@@ -122,8 +122,8 @@ public class CajaActivity extends AppCompatActivity {
         }else{
 
             //se deben actulizar igual los componentes que muestran el mismo dato
-            for(ModeloMenuFirebase e:lista){
-                e.setSeleccion(0);
+            for(Menu e:lista){
+               // e.setSeleccion(0);
                 igual = 0;
             }
 
@@ -138,9 +138,6 @@ public class CajaActivity extends AppCompatActivity {
     private class CajaListener implements ValueEventListener {
 
         int total = 0;
-
-
-
         @Override
         public void onDataChange(@NonNull DataSnapshot snapshot) {
             lista.clear();
@@ -149,10 +146,11 @@ public class CajaActivity extends AppCompatActivity {
 
             for(int i=0;i<total;i++){
                 String hijo =String.valueOf(i);
-                lista.add(snapshot.child(hijo).getValue(ModeloMenuFirebase.class));
+              //  lista.add(snapshot.child(hijo).getValue(ModeloMenuFirebase.class));
 
             }
-            Toast.makeText(CajaActivity.this, lista.get(0).getNombre(), Toast.LENGTH_SHORT).show();
+
+         //   Toast.makeText(CajaActivity.this, lista.get(0).getNombre(), Toast.LENGTH_SHORT).show();
 
             _ListaViewPantalla.setAdapter(adapater);
             _ListaViewPantalla.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -167,7 +165,7 @@ public class CajaActivity extends AppCompatActivity {
                     //lista.get(position).setNombre("camaron");
 
                     //agrega 1 a selccionador y no deja agregar mas que la cantidad
-                    if((lista.get(position).getSeleccion())<(lista.get(position).getCantidad())){
+                 /*   if((lista.get(position).getSeleccion())<(lista.get(position).getCantidad())){
                         lista.get(position).Agregar();
 
                     }else{
@@ -178,12 +176,12 @@ public class CajaActivity extends AppCompatActivity {
                         //la varible igual se le pone 0
                         lista.get(position).setSeleccion(0);
                         igual--;
-                    }
+                    }*/
 
 
 
                     //
-                    if((lista.get(position).getSeleccion()==lista.get(position).getCantidad())){
+                /*    if((lista.get(position).getSeleccion()==lista.get(position).getCantidad())){
                         //unica forma de sumar la varibale solo cuando son iguales
                         igual+=1;
                     }
@@ -217,22 +215,10 @@ public class CajaActivity extends AppCompatActivity {
                     }
 
                     return false;
-
-                }
-            });
-
-/*
-            _BtnSwitch.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(_BtnSwitch.isChecked()){
-                        //Toast.makeText(getApplicationContext(), lista.get(0).getNombre()+"", Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(getApplicationContext(), "Separado", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
 */
+                }
+            });
+
 
         }
 
@@ -262,11 +248,11 @@ public class CajaActivity extends AppCompatActivity {
 
     private void ActualizarTotal(){
         int total = 0;
-
+/*
         for(ModeloMenuFirebase e:lista){
             total += e.getSeleccion()*e.getPrecio();
         }
-
+*/
         _Total.setText(total+"");
 
     }

@@ -11,9 +11,10 @@
        <Button
             android:id="@+id/BtnPlato"
             android:layout_width="wrap_content"
+           android:layout_gravity="center_horizontal"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textAlignment="textStart"
+            android:textAlignment="center"
             android:paddingLeft="30dp"
             android:text="hola"
             android:backgroundTint="#fff"

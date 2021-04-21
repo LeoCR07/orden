@@ -3,12 +3,11 @@
 
     <string-array name="ArrayConfiguracion">
 
-        <item>"Editar Mesas"</item>
-        <item>"Bloquear platos"</item>
-        <item>"Crear un plato"</item>
-        <item>"Modificar un plato"</item>
-        <item>"Eliminar un plato"</item>
+        <item>"Mesas"</item>
+        <item>"Saloneros"</item>
+        <item>"Comida"</item>
         <item>"Inventario"</item>
+        <item>"Seguridad"</item>
 
     </string-array>
 </resources>

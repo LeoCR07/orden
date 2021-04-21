@@ -1,6 +1,7 @@
 package com.example.orden.Configuracion;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -32,6 +33,9 @@ public class NumeroMesaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_numero_mesa);
+
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setTitle("Ajustar Mesas");
 
         _ViewNumero = findViewById(R.id.TextViewNM);
         _EditNumero = findViewById(R.id.EditNumeroM);

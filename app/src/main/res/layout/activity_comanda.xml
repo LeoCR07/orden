@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    tools:context=".Comanda.ComandaActivity">
+
+    <!-- Toda la pantalla -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="110"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Contador y Mesa -->
+        <LinearLayout
+            android:layout_weight="6"
+            android:id="@+id/linearLayout31"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:padding="5dp"
+            android:background="@color/colorPrimaryDark"
+            android:orientation="horizontal"
+            android:weightSum="9">
+
+            <ImageView
+                android:layout_weight="1"
+                android:src="@drawable/ic_entrada"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+            </ImageView>
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@color/colorPrimaryDark"
+                android:text="0"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+
+            <ImageView
+                android:layout_weight="1"
+                android:src="@drawable/ic_bebida"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+            </ImageView>
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@color/colorPrimaryDark"
+                android:text="0"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+
+            <ImageView
+                android:layout_weight="1"
+                android:src="@drawable/ic_comida"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+            </ImageView>
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@color/colorPrimaryDark"
+                android:text="0"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+
+            <ImageView
+                android:layout_weight="1"
+                android:src="@drawable/ic_postre"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+            </ImageView>
+
+
+            <TextView
+                android:id="@+id/TxtViewCantidad"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimaryDark"
+                android:text="0"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/TextViewMesa"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimaryDark"
+                android:text="# 7"
+                android:textAlignment="viewEnd"
+                android:textColor="#fff"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <!-- Lista -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="44"
+            android:background="#fff"
+            android:id="@+id/recyclerID"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:accessibilityLiveRegion="polite"
+            android:importantForAccessibility="yes"
+            android:longClickable="false"
+            android:nestedScrollingEnabled="true"
+            android:saveEnabled="true"
+            android:scrollbarStyle="insideInset"
+            android:textAlignment="center"
+            tools:visibility="visible">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <!-- Division -->
+        <TextView
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/colorPrimaryDark">
+        </TextView>
+
+        <!-- Menu -->
+        <ExpandableListView
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="57"
+            android:background="#fff"
+            android:id="@+id/expLV"
+            style="@android:style/Widget.Material.ExpandableListView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentBottom="true"
+            android:textAlignment="viewStart"
+       />
+
+        <!-- Pie -->
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/colorPrimaryDark">
+        </TextView>
+
+
+
+    </LinearLayout>
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/MenuPrincipal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="14dp"
+        android:layout_marginLeft="6dp"
+        app:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+        menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
+        app:menu_labels_position="right"
+
+        app:menu_labels_hideAnimation="@anim/fab_scale_down"
+        app:menu_fab_hide_animation="@anim/fab_slide_in_from_right"
+        app:menu_fab_label="Menu">
+
+
+        <!--Postre-->
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/SubMenuPostre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_postre"
+            app:fab_label="Postre" />
+
+        <!--Orden-->
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/SubMenuOrden"
+            android:onClick="Orden"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_orden"
+            app:fab_label="Orden" />
+
+        <!--bebidas-->
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/SubMenuBedidas"
+            android:onClick="Bebidas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_bebida"
+            app:fab_label="Bebidas" />
+
+        <!--Almuerzo-->
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/SubMenuComida"
+            android:layout_width="wrap_content"
+            android:onClick="Almuerzo"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_comida"
+            app:fab_label="Almuerzo" />
+
+        <!--Desayuno-->
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/SubMenuDesayuno"
+            android:onClick="Desayuno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_comida"
+            app:fab_label="Desayuno" />
+
+        <!--Entrtada-->
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/SubMenuEntrada"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_entrada"
+            app:fab_label="Entrada" />
+
+
+        <!--Enviar la comanda-->
+    </com.github.clans.fab.FloatingActionMenu>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_enviar"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="10dp"
+        app:borderWidth="0dp"
+        android:backgroundTint="#7CB342"
+        android:elevation="4dp"
+        android:onClick="ClickEnviarComanda"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.orden.Caja.FacturaActivity;
+import com.example.orden.Configuracion.ConfiguracionActivity;
 import com.example.orden.General.ModeloFactura;
 import com.example.orden.General.MyAdapter;
 import com.example.orden.R;
@@ -92,6 +93,7 @@ import java.util.List;
 
         int Diferente = 0;  //cuenta el numero de veces que es diferete una mesa
         private ArrayList<Integer>Activas = new ArrayList<>();   //lleva las mesas que esten en la base de datos(Activas)
+        private ArrayList<Integer>Desactivas = new ArrayList<>();
 
         @Override
         public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -117,7 +119,7 @@ import java.util.List;
                 for(int j = 0;j<Activas.size();j++){
                     if(Cantidad==i){   //ultima vuelta
                         if(i==Activas.get(j)){
-                          itemList.add(new ModeloFactura("Para LLevar",""+Activas.get(j),R.drawable.mesa_activa));
+                          itemList.add(new ModeloFactura("Otras",""+Activas.get(j),R.drawable.mesa_activa));
                          }else{
                           contadorAux++;
                          }
@@ -132,7 +134,9 @@ import java.util.List;
                         }
                         //Tiene que ser diferente a todas las mesas activas para que este descactiva
                         if(Diferente==Activas.size()){
-                            itemList.add(new ModeloFactura(R.drawable.mesa_inactiva, "Mesa "+i));
+                          //  itemList.add(new ModeloFactura(R.drawable.mesa_inactiva, "Mesa "+i));
+                            itemList.add(new ModeloFactura("Mesa "+i,""+i,R.drawable.mesa_inactiva));
+
                         }
                     }
                     //se limpia para contar las otras mesas
@@ -158,13 +162,15 @@ import java.util.List;
                             Toast.makeText(getApplicationContext(),itemList.get(recyclerView.getChildAdapterPosition(view)).getPath(),Toast.LENGTH_LONG).show();
                             Intent in = new Intent(getApplicationContext(), FacturaActivity.class);
                             in.putExtra("Mesa",itemList.get(recyclerView.getChildAdapterPosition(view)).getPath());
-
                             startActivity(in);
                             break;
                         }
 
                         case R.drawable.mesa_inactiva:{
                             Toast.makeText(MesasActivity.this, "No existen facturas", Toast.LENGTH_SHORT).show();
+                            Intent in = new Intent(getApplicationContext(), FacturaActivity.class);
+                            in.putExtra("Mesa",itemList.get(recyclerView.getChildAdapterPosition(view)).getPath());
+                            startActivity(in);
                             break;
                         }
                     }
@@ -184,24 +190,25 @@ import java.util.List;
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+      @Override
+      public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        switch (item.getItemId()){
-            case R.id.icon_crear:{
-                Toast.makeText(getApplicationContext(),"Crear nueva factura",Toast.LENGTH_SHORT).show();
-                //OpenDialog();
-                break;
-            }
+          switch (item.getItemId()){
+              case R.id.icon_configuracion:{
+                //  Toast.makeText(getApplicationContext(),"Ajustes",Toast.LENGTH_SHORT).show();
+                 startActivity(new Intent(MesasActivity.this, ConfiguracionActivity.class));
+                // startActivity(new Intent(MesasActivity.this, UsuarioActivity.class));
+                  break;
+              }
 
-        }
-        return true;
-    }
+          }
+          return true;
+      }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.actividad,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+      @Override
+      public boolean onCreateOptionsMenu(Menu menu) {
+          getMenuInflater().inflate(R.menu.actividad,menu);
+          return super.onCreateOptionsMenu(menu);
+      }
 }
 

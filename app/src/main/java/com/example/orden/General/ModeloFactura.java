@@ -24,14 +24,13 @@ public class ModeloFactura {
         this.nombre = nombre;
     }
 
-    /** Mesas Inactivas y confijuracion **/
+    /** Mesas Inactivas y Usuarios **/
     public ModeloFactura(int imagen,String nombre) {
         Imagen = imagen;
         this.nombre = nombre;
     }
 
-    public ModeloFactura(int imagen,CharSequence nombre) {
-        Imagen = imagen;
+    public ModeloFactura(String nombre) {
         this.nombre =(String) nombre;
     }
 

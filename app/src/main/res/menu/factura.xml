@@ -2,6 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/item_0"
+        android:title="Editar"
+        app:showAsAction="never">
+    </item>
+
+    <item
         android:id="@+id/item_1"
         android:title="Cambiar de mesa"
         app:showAsAction="never">
@@ -9,7 +15,7 @@
 
     <item
         android:id="@+id/item_2"
-        android:title="Eliminar"
+        android:title="Borrar cuenta"
         app:showAsAction="never">
     </item>
 </menu>
